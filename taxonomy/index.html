@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Dictionnaire FIX, DSB (ANNA), ISDA & ORE – ISIN.github.io</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            min-height: 100vh;
+            box-sizing: border-box;
+            position: relative;
+            background-color: #271e39;
+            overflow-x: hidden;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml;utf8,<svg width='50' height='58' xmlns='http://www.w3.org/2000/svg'><polygon points='25,4 48,18 48,40 25,54 2,40 2,18' fill='%232d2551' stroke='%233a3172' stroke-width='2'/><ellipse cx='25' cy='20' rx='17' ry='8' fill='white' opacity='0.19'/><ellipse cx='25' cy='35' rx='12' ry='5' fill='white' opacity='0.11'/></svg>");
+            background-repeat: repeat;
+            background-size: 50px 58px;
+            box-shadow: inset 0 150px 200px -110px #4f2c95cc,
+                        inset 0 -150px 200px -110px #3cc3c8aa;
+        }
+        .container {
+            max-width: 1020px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            background: rgba(44,34,63,0.82);
+            border-radius: 20px;
+            box-shadow: 0 6px 40px #291f4380;
+            padding: 32px 15px 20px 15px;
+            margin-top: 36px;
+        }
+        h1, h2, h3 {
+            text-align: center;
+            text-transform: uppercase;
+            text-shadow: 0px 2px 18px #36257588, 0px 1px 6px #22213c44;
+            color: #eddbff;
+        }
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 12px;
+            letter-spacing: .13em;
+        }
+        h2 {
+            font-size: 1.36rem;
+            margin-top: 38px;
+            margin-bottom: 14px;
+            letter-spacing: .07em;
+        }
+        h3 {
+            font-size: 1.08rem;
+            margin-top: 28px;
+            margin-bottom: 10px;
+            letter-spacing: .06em;
+            color: #c8e8f8;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 24px;
+            margin-top: 6px;
+        }
+        th, td {
+            border: 1px solid #56488877;
+            padding: 8px 14px;
+            text-align: left;
+            background: rgba(42,34,63,0.83);
+            font-size: .99em;
+            color: #dbff87; /* Jaune vert clair ! */
+        }
+        th {
+            background: #564888d7;
+            color: #dbff87;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background: rgba(63,56,93,0.88);
+        }
+        .desc {
+            color: #dbff87;
+        }
+        .footer {
+            margin: 38px 0 18px 0;
+            text-align: center;
+            font-size: 0.95em;
+            color: #cfcfe2;
+            opacity: 0.97;
+            z-index: 2;
+            position: relative;
+        }
+        .note {
+            color: #ada5f7;
+            font-size: .97em;
+            margin: 7px 0 14px 0;
+            text-align: justify;
+        }
+        ul {
+            color: #bafef2;
+            font-size: 1em;
+            margin-bottom: 18px;
+        }
+        @media (max-width: 650px) {
+            h1 { font-size: 1.14rem; }
+            h2, h3 { font-size: .98rem; }
+            .container { padding: 8px 2px; margin-top: 9px;}
+            th, td { padding: 5px 3px; font-size: 0.94em;}
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Dictionnaire FIX, DSB (ANNA), ISDA & ORE</h1>
+
+    <h2>Principaux champs FIX</h2>
+    <table>
+        <tr>
+            <th>Tag FIX</th><th>Nom du champ</th><th>Description / Utilisation</th>
+        </tr>
+        <tr><td>6</td><td>AvgPx</td><td class="desc">Prix moyen exécuté</td></tr>
+        <tr><td>15</td><td>Currency</td><td class="desc">Devise de règlement</td></tr>
+        <tr><td>22</td><td>IDSource</td><td class="desc">Type d'identifiant (ex: ISIN)</td></tr>
+        <tr><td>48</td><td>SecurityID</td><td class="desc">ISIN/Ticker/identifiant instrument</td></tr>
+        <tr><td>55</td><td>Symbol</td><td class="desc">Code instrument, abbréviation, ticker</td></tr>
+        <tr><td>202</td><td>StrikePrice</td><td class="desc">Prix d'exercice (options)</td></tr>
+        <tr><td>541</td><td>MaturityDate</td><td class="desc">Date de fin du contrat</td></tr>
+        <tr><td>100</td><td>ExDestination</td><td class="desc">MIC (Market Identifier Code)</td></tr>
+        <tr><td>461</td><td>CFICode</td><td class="desc">Type standardisé de produit financier (ISO 10962)</td></tr>
+        <tr><td>762</td><td>SecuritySubType</td><td class="desc">Sous-type d'instrument</td></tr>
+        <tr><td>454</td><td>NoSecurityAltID</td><td class="desc">Identifiants alternatifs</td></tr>
+    </table>
+
+    <h2>Correspondance FIX – Static Data – Pricing Config</h2>
+    <table>
+        <tr>
+            <th>Champ FIX</th>
+            <th>Static Data</th>
+            <th>Pricing Config</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>Currency (15)</td>
+            <td>issue currency</td>
+            <td>pricing currency</td>
+            <td>Devise du produit et celle de la valorisation</td>
+        </tr>
+        <tr>
+            <td>SecurityID (48)</td>
+            <td>ISIN code</td>
+            <td>instrument id</td>
+            <td>Identifiant unique international de l’instrument</td>
+        </tr>
+        <tr>
+            <td>MaturityDate (541)</td>
+            <td>maturity</td>
+            <td>maturity date</td>
+            <td>Date de remboursement ou échéance</td>
+        </tr>
+        <tr>
+            <td>ExDestination (100)</td>
+            <td>MIC code</td>
+            <td>market id</td>
+            <td>Code de la place de cotation ou négociation</td>
+        </tr>
+        <tr>
+            <td>CFICode (461)</td>
+            <td>classification type</td>
+            <td>pricer template</td>
+            <td>Type normalisé de produit (ex: DBFNXX = bond)</td>
+        </tr>
+        <tr>
+            <td>LEI (non-FIX std)</td>
+            <td>issuer LEI</td>
+            <td>counterparty id</td>
+            <td>Identifiant de l’émetteur ou partie contractante</td>
+        </tr>
+        <tr>
+            <td>StrikePrice (202)</td>
+            <td>option strike</td>
+            <td>option pricer param</td>
+            <td>Prix d’exercice pour options/actions</td>
+        </tr>
+        <tr>
+            <td>AvgPx (6)</td>
+            <td>-</td>
+            <td>pricing output</td>
+            <td>Prix moyen calculé ou exécuté</td>
+        </tr>
+        <tr>
+            <td>MaturityMonthYear (200)</td>
+            <td>schedule period</td>
+            <td>pricing period</td>
+            <td>Période de paiement ou calcul (Futures/Swaps)</td>
+        </tr>
+        <tr>
+            <td>NoSecurityAltID (454)</td>
+            <td>secondary ids</td>
+            <td>-</td>
+            <td>Identifiants secondaires/alternatifs</td>
+        </tr>
+    </table>
+
+    <h2>Descriptions Pricer Config et Static Data</h2>
+    <ul>
+        <li><strong>Static Data :</strong> Caractéristiques permanentes d’un instrument (ISIN, MIC, currency, issuer LEI, calendrier, type de coupon, option, maturité…)</li>
+        <li><strong>Pricing Config :</strong> Paramètres nécessaires à la valorisation (méthodes de calcul, courbes, conventions calendrier, volatilité…)</li>
+        <li><strong>Pricer Template :</strong> Type de pricer QuantLib (Bond, Swap, Option, ABS, Mortgage…), choisi selon la nature/structure (voir <a href="/templates" style="color:#c7dbff;">templates</a>).</li>
+    </ul>
+    
+    <h2>Champs DSB (ANNA) – Produits OTC (ISO 10962)</h2>
+    <div class="note">
+        Attributs DSB / ANNA pour produits OTC et dérivés, selon ISO 10962.<br>
+        <a href="https://www.anna-dsb.com/" target="_blank" style="color:#c7dbff;">DSB / ANNA (site officiel)</a>
+    </div>
+    <table>
+        <tr>
+            <th>Champ DSB / ISO 10962</th>
+            <th>Description</th>
+            <th>Exemple / Format</th>
+        </tr>
+        <tr>
+            <td>ISIN</td>
+            <td class="desc">Identifiant international (12 caractères)</td>
+            <td>FR0000123456</td>
+        </tr>
+        <tr>
+            <td>UPI</td>
+            <td class="desc">Unique Product Identifier (produits OTC)</td>
+            <td>UPI:SG1A00012345</td>
+        </tr>
+        <tr>
+            <td>CFI Code</td>
+            <td class="desc">Classification instrument ISO 10962</td>
+            <td>DBFXXX, FICSFX, JGMXMM</td>
+        </tr>
+        <tr>
+            <td>FISN</td>
+            <td class="desc">Short Name : ISIN + description</td>
+            <td>FR0000123456 CORP BOND 2.75%</td>
+        </tr>
+        <tr>
+            <td>MIC</td>
+            <td class="desc">Market Identifier Code</td>
+            <td>XPAR</td>
+        </tr>
+        <tr>
+            <td>CUSIP</td>
+            <td class="desc">Identifiant US</td>
+            <td>123456789</td>
+        </tr>
+        <tr>
+            <td>LEI</td>
+            <td class="desc">Legal Entity Identifier</td>
+            <td>5493001KJTIIGC8Y1R12</td>
+        </tr>
+        <tr>
+            <td>Standard Attributes</td>
+            <td class="desc">Classe d’actifs, Tenor, Payoff Features…</td>
+            <td>Rates, Equity, Credit, FX…</td>
+        </tr>
+    </table>
+    
+    <h2>Taxonomie ISDA – Classification des Produits OTC</h2>
+    <div class="note">
+        Catégorisation ISDA / DSB des produits OTC.<br>
+        <a href="https://www.anna-dsb.com/" target="_blank" style="color:#bbf;">https://www.anna-dsb.com/</a>
+    </div>
+    <table>
+        <tr>
+            <th>Classe d’Actifs ISDA/DSB</th>
+            <th>Type Produit</th>
+            <th>Exemples</th>
+        </tr>
+        <tr><td>Rates</td><td>Swap, FRA, Cap/Floor, Option</td><td>Interest Rate Swap, Overnight Index Swap</td></tr>
+        <tr><td>Credit</td><td>CDS, Index CDS, Option, Tranche</td><td>Single Name CDS, CDX Index</td></tr>
+        <tr><td>Equity</td><td>Swap, Option, Forward, Basket</td><td>Equity Swap, Variance Swap</td></tr>
+        <tr><td>FX</td><td>Spot, Forward, NDF, Swap, Option</td><td>FX Spot, FX Option, FX Swap, NDF</td></tr>
+        <tr><td>Commodity</td><td>Forward, Swap, Option, Spot</td><td>Oil Swap, Power Derivative, Commodity Option</td></tr>
+        <tr><td>Other / Structured</td><td>ABS, MBS, Hybrid, Exotic</td><td>CLO tranche, ESG-linked swap</td></tr>
+    </table>
+    
+    <h2>Mapping FIX / DSB / Static Data / Pricing Config</h2>
+    <table>
+        <tr>
+            <th>Champ</th>
+            <th>Norme</th>
+            <th>Description</th>
+            <th>Static/Pricing Data</th>
+        </tr>
+        <tr><td>ISIN</td><td>FIX : SecurityID / DSB</td><td>ID unique international</td><td>ISIN (static)</td></tr>
+        <tr><td>CFI Code</td><td>FIX : CFICode / DSB/ISO10962</td><td>Type de produit structuré (Bond/Swap/Option)</td><td>pricer template</td></tr>
+        <tr><td>UPI</td><td>DSB</td><td>ID unique pour produits OTC</td><td>template OTC</td></tr>
+        <tr><td>FISN</td><td>DSB</td><td>Description normalisée instrument</td><td>dénomination (static)</td></tr>
+        <tr><td>MIC</td><td>FIX : ExDestination / DSB</td><td>Marché de cotation/négociation</td><td>MIC code</td></tr>
+        <tr><td>LEI</td><td>DSB</td><td>Identifiant émetteur</td><td>issuer LEI</td></tr>
+        <tr><td>Asset Class</td><td>DSB / ISDA</td><td>Classe d’actifs rates, credit, equity…</td><td>category (static/pricing)</td></tr>
+        <tr><td>Tenor</td><td>DSB</td><td>Maturité ou échéance instrument</td><td>maturity (static/pricing)</td></tr>
+    </table>
+
+    <h2>Extensions QuantLib avec ORE (Open Risk Engine)</h2>
+    <div class="note">
+        <strong>ORE (Open Risk Engine)</strong> enrichit QuantLib pour le pricing, le calcul de risque, la gestion des XVA, le reporting réglementaire, le support produits complexes et multi-portefeuilles.<br>
+        Documentation : <a href="https://www.opensourcerisk.org/" target="_blank" style="color:#aaf;">https://www.opensourcerisk.org/</a>
+    </div>
+    <table>
+        <tr>
+            <th>Type de Pricer</th>
+            <th>Extension ORE/QuantLib</th>
+            <th>Capacités supplémentaires</th>
+        </tr>
+        <tr>
+            <td>BondPricer</td>
+            <td>Multi courbes, conventions multiples, analytics de risque</td>
+            <td>Courbes de spread, analyse de sensibilité, gestion du rating, simulation scénarios</td>
+        </tr>
+        <tr>
+            <td>SwapPricer</td>
+            <td>Pricing multi courbes, collateralisation, XVA</td>
+            <td>Valo OIS, CSA, CVA/DVA/FVA, reporting réglementaire EMIR/CRR</td>
+        </tr>
+        <tr>
+            <td>OptionPricer</td>
+            <td>Modèles stochastiques étendus, calibration avancée</td>
+            <td>Support exotiques, vol surfaces, arbre de corrélation, stress-test</td>
+        </tr>
+        <tr>
+            <td>FuturePricer</td>
+            <td>Backtesting, chainage contrats, PnL attribution</td>
+            <td>Gestion positions long/short, agrégation multi marchés</td>
+        </tr>
+        <tr>
+            <td>CreditDefaultSwapPricer</td>
+            <td>Modélisation corrélations portefeuilles, XVA crédit</td>
+            <td>Rapports CSAs, scénario risque, recovery rate multi source</td>
+        </tr>
+        <tr>
+            <td>FXPricer</td>
+            <td>Multi devise, intégration courbes FX avancées</td>
+            <td>Arbitrage FX, VaR multi paires, reporting stress</td>
+        </tr>
+        <tr>
+            <td>ABSPricer</td>
+            <td>Moteur cash flow ORE, tranches, courbe crédit</td>
+            <td>Rapport waterfall, triggers, pool timeline, simulations prépaiement</td>
+        </tr>
+        <tr>
+            <td>MortgagePricer</td>
+            <td>Analytics mortgage, cashflow flags</td>
+            <td>Préparamétisation PSA/CDR, fee servicing, Securitisation</td>
+        </tr>
+        <tr>
+            <td>CommodityPricer</td>
+            <td>Asset modelling ORE, volatilities, correlations</td>
+            <td>Reporting EMIR, structure contrats, stress valeur spot/future</td>
+        </tr>
+        <tr>
+            <td>ExoticPricer</td>
+            <td>Simulation Monte Carlo ORE, modèles hybrides</td>
+            <td>XVA exotiques, backtesting avancé, triggers/path-dependency</td>
+        </tr>
+    </table>
+    <ul>
+        <li>Les extensions ORE permettent une valorisation cross-asset, une analyse multi-portefeuille, la gestion de la collateralisation, du reporting (EMIR/CRR/IFRS9), et du risque de contrepartie (CVA/DVA/XVA).</li>
+        <li>ORE est compatible avec les templates QuantLib et permet l’intégration dans les workflows métier via API et reporting customisé.</li>
+    </ul>
+    <h3>Pour en savoir plus</h3>
+    <div class="note">
+        <strong>DSB ANNA :</strong> attribution ISIN, UPI et CFI pour chaque produit OTC : <a href="https://www.anna-dsb.com/" target="_blank" style="color:#bbf;">https://www.anna-dsb.com/</a>.<br>
+        <strong>ISDA Taxonomy :</strong> classification des produits OTC selon la nomenclature DSB.<br>
+        <strong>ORE :</strong> <a href="https://www.opensourcerisk.org/" target="_blank" style="color:#aaf;">Documentation ORE/OpenRisk</a>
+    </div>
+</div>
+<div class="footer">
+    &copy; SCCAAHINET SAS 2025
+</div>
+</body>
+</html>
