@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ISIN.github.io – QuantLib Pricer Templates</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(130deg, #292040 60%, #4c4170 100%);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            color: #f5f1fa;
+        }
+        .header {
+            padding: 48px 0 20px 0;
+            text-align: center;
+        }
+        .title {
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            text-shadow:
+                0px 4px 14px #373057,
+                2px 0px 6px #2c1f3a;
+            letter-spacing: .14em;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            font-size: 1.3rem;
+            letter-spacing: .08em;
+            opacity: 0.94;
+            margin-bottom: 20px;
+        }
+        .container {
+            max-width: 820px;
+            margin: 0 auto;
+            z-index: 1;
+        }
+        .pricer-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 36px;
+            justify-content: center;
+        }
+        .pricer-card {
+            background: rgba(41, 34, 60, 0.89);
+            border-radius: 18px;
+            min-width: 260px;
+            max-width: 340px;
+            flex: 1 1 260px;
+            box-shadow: 0 4px 16px #1f1530aa;
+            padding: 30px 22px;
+            margin-bottom: 18px;
+            text-align: left;
+        }
+        .pricer-title {
+            font-size: 1.22em;
+            margin-bottom: 8px;
+            color: #dbd6fa;
+            letter-spacing: 0.04em;
+            font-weight: 600;
+        }
+        .pricer-desc {
+            font-size: 1em;
+            color: #fafafd;
+            margin-bottom: 8px;
+            opacity: .97;
+        }
+        .setup-list {
+            margin: 7px 0 0 0;
+            padding-left: 20px;
+            color: #e6e1fa;
+            font-size: 0.98em;
+        }
+        .footer {
+            text-align: center;
+            color: #cfcfe4;
+            margin: 50px 0 8px 0;
+            font-size: .96em;
+            opacity: 0.91;
+        }
+        @media (max-width: 700px) {
+          .container {
+            padding: 0 8px;
+          }
+          .pricer-list {
+            flex-direction: column;
+            gap: 24px;
+          }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="title">QuantLib Pricer Templates</div>
+        <div class="subtitle">How to configure pricers for all instrument types</div>
+    </div>
+    <div class="container">
+        <div class="pricer-list">
+            <div class="pricer-card">
+                <div class="pricer-title">BondPricer</div>
+                <div class="pricer-desc">
+                    Used for fixed-income securities: government, corporate, and structured bonds.
+                </div>
+                <ul class="setup-list">
+                    <li>Set issue amount, coupon schedule, day count convention, and calendar.</li>
+                    <li>Choose yield, discount, or clean price methods.</li>
+                    <li>Configure amortization and optionality (call/put).</li>
+                </ul>
+            </div>
+            <div class="pricer-card">
+                <div class="pricer-title">SwapPricer</div>
+                <div class="pricer-desc">
+                    Used for vanilla and exotic interest rate swaps.
+                </div>
+                <ul class="setup-list">
+                    <li>Specify fixed and floating legs, spread, payment frequency.</li>
+                    <li>Set up the curve and reference index (e.g., Euribor, Libor).</li>
+                </ul>
+            </div>
+            <div class="pricer-card">
+                <div class="pricer-title">OptionPricer</div>
+                <div class="pricer-desc">
+                    Supports vanilla, barrier, Asian, and exotic options.
+                </div>
+                <ul class="setup-list">
+                    <li>Input underlying, strike, expiry, style (European/American).</li>
+                    <li>Configure volatility surface/model.</li>
+                    <li>Select Black-Scholes, binomial, or Monte Carlo engine.</li>
+                </ul>
+            </div>
+            <div class="pricer-card">
+                <div class="pricer-title">FuturePricer</div>
+                <div class="pricer-desc">
+                    For futures contracts across commodities, FX, or rates.
+                </div>
+                <ul class="setup-list">
+                    <li>Specify contract, delivery date, margining scheme.</li>
+                    <li>Choose settlement conventions.</li>
+                </ul>
+            </div>
+            <div class="pricer-card">
+                <div class="pricer-title">CreditDefaultSwapPricer</div>
+                <div class="pricer-desc">
+                    For single-name or index CDS and tranches.
+                </div>
+                <ul class="setup-list">
+                    <li>Select protection period, schedule, and recovery rate.</li>
+                    <li>Configure ISDA setup and default probability curves.</li>
+                </ul>
+            </div>
+            <div class="pricer-card">
+                <div class="pricer-title">FXPricer</div>
+                <div class="pricer-desc">
+                    Used for FX Vanilla, options, NDFs, and swaps.
+                </div>
+                <ul class="setup-list">
+                    <li>Choose currency pair, notional, settlement conventions.</li>
+                    <li>Set up volatility and forward curves.</li>
+                </ul>
+            </div>
+            <div class="pricer-card">
+                <div class="pricer-title">ABSPricer</div>
+                <div class="pricer-desc">
+                    For asset-backed securities (ABS), including auto/credit card/collateralized pools.
+                </div>
+                <ul class="setup-list">
+                    <li>Configure pool characteristics: asset type, distribution, prepayment assumptions.</li>
+                    <li>Set tranching structure, waterfall rules, and credit enhancement.</li>
+                    <li>Specify legal maturity and call/control features.</li>
+                </ul>
+            </div>
+            <div class="pricer-card">
+                <div class="pricer-title">MortgagePricer</div>
+                <div class="pricer-desc">
+                    Used for mortgage-backed securities (MBS), including pass-throughs and CMOs.
+                </div>
+                <ul class="setup-list">
+                    <li>Define mortgage pool: principal, coupon, payment schedule.</li>
+                    <li>Model cash flows with prepayment/extension options (PSA/CDR curves).</li>
+                    <li>Set up tranches, credit enhancement, and servicing fees.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        &copy; SCCAAHINET SAS and Daniel BOUTRIN 2025
+    </div>
+</body>
+</html>
