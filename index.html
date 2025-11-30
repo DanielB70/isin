@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ISIN.GITHUB.IO Collaborative Database</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            min-height: 100vh;
+            box-sizing: border-box;
+            position: relative;
+            background-color: #271e39;
+            overflow-x: hidden;
+        }
+        /* --- Hexagonal Grid with Glossy Effects --- */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+            /* SVG base 50x58px hexagons, with gradients/shines */
+            background-image: url("data:image/svg+xml;utf8,<svg width='50' height='58' xmlns='http://www.w3.org/2000/svg'><polygon points='25,4 48,18 48,40 25,54 2,40 2,18' fill='%232d2551' stroke='%233a3172' stroke-width='2'/><ellipse cx='25' cy='20' rx='17' ry='8' fill='white' opacity='0.19'/><ellipse cx='25' cy='35' rx='12' ry='5' fill='white' opacity='0.11'/></svg>");
+            background-repeat: repeat;
+            background-size: 50px 58px;
+            /* Brighter top and bottom with a gradient overlay */
+            box-shadow: inset 0 150px 200px -110px #4f2c95cc,
+                        inset 0 -150px 200px -110px #3cc3c8aa;
+        }
+        .banner {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 44vh;
+        }
+        .title {
+            text-transform: uppercase;
+            text-align: center;
+            font-size: 2.7rem;
+            letter-spacing: .18em;
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+            color: #f6f0fa;
+            margin: 0;
+            text-shadow:
+                0px 4px 14px #373057,
+                3px 0px 6px #2c1f3a,
+                0px 1px 0px #fff2,
+                0px 0px 20px #8888;
+            padding: 48px 16px 27px 16px;
+            background: transparent;
+        }
+        @media (max-width: 600px) {
+            .title { font-size: 1.6rem; padding: 30px 8px 10px 8px; }
+            .subscription-plans { flex-direction: column; gap: 24px; }
+        }
+
+        .links {
+            text-align: center;
+            z-index: 2;
+            margin-top: 12px;
+            margin-bottom: 38px;
+        }
+        .links a {
+            display: inline-block;
+            background: rgba(56,47,84,0.85);
+            color: #edecf7;
+            text-decoration: none;
+            margin: 4px 16px;
+            padding: 12px 40px;
+            border-radius: 36px;
+            font-size: 1rem;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            box-shadow: 0 2px 12px #211f38aa;
+            transition: background 0.2s;
+        }
+        .links a:hover { background: rgba(117,104,180,0.92); color: #fff; }
+
+        .subscription-section {
+            position: relative;
+            z-index: 2;
+            max-width: 1040px;
+            margin: 0 auto;
+            padding: 10px 18px 28px 18px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .subscription-title {
+            color: #f4f0fe;
+            font-size: 1.7rem;
+            text-shadow: 0 2px 12px #2a1c3f77;
+            margin-bottom: 28px;
+            letter-spacing: 0.06em;
+            text-align: center;
+        }
+        .subscription-plans {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 36px;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+        .plan {
+            background: rgba(46,40,67,0.93);
+            border-radius: 16px;
+            min-width: 260px;
+            max-width: 350px;
+            box-shadow: 0 3px 16px #1f1530aa;
+            padding: 32px 20px 23px 20px;
+            margin-bottom: 12px;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            border: 2px solid #5948a447;
+        }
+        .plan-name {
+            font-size: 1.23em;
+            font-weight: 600;
+            color: #e3d7fc;
+            margin-bottom: 10px;
+            letter-spacing: 0.04em;
+            text-shadow: 0 1px 8px #3e36717f;
+        }
+        .plan-desc {
+            font-size: 1em;
+            margin-bottom: 10px;
+            color: #eae2fa;
+            opacity: .93;
+        }
+        .plan ul {
+            padding-left: 18px;
+            font-size: .97em;
+            margin-bottom: 12px;
+            color: #d1caf3;
+        }
+        .plan .reward {
+            font-size: .97em;
+            margin-top: 4px;
+            color: #9ce3db;
+            background: rgba(40,90,80,0.17);
+            padding: 3px 14px;
+            border-radius: 16px;
+            display: inline-block;
+        }
+        .plan-action {
+            margin-top: 13px;
+        }
+        .plan-action a {
+            background: #463697;
+            color: #fff;
+            text-decoration: none;
+            padding: 8px 22px;
+            border-radius: 22px;
+            transition: background 0.2s;
+            font-size: 1em;
+        }
+        .plan-action a:hover { background: #6e44d2; }
+        .footer {
+            margin-top: 70px;
+            color: #cfcfe4;
+            text-align: center;
+            font-size: .95em;
+            opacity: 0.93;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">
+        <h1 class="title">ISIN.GITHUB.IO<br>Collaborative Database</h1>
+        <div class="links">
+            <a href="/static/FR0000123456">Static Data sample</a>
+            <a href="/pricing/ABCX">Pricing Config sample</a>
+            <a href="/prices/ABCX">Prices & Sensitivities sample</a>
+            <a href="/templates">Pricer Templates</a>
+            <a href="/alert-issues">Alert-Issues Center</a>
+        </div>
+    </div>
+    <div class="subscription-section">
+        <div class="subscription-title">Choose Your Subscription Plan</div>
+        <div class="subscription-plans">
+            <div class="plan">
+                <div class="plan-name">Email Notifications</div>
+                <div class="plan-desc">Subscribe to receive email alerts for any newly listed or updated ISIN records.</div>
+                <ul>
+                    <li>Get instant notification for new database entries</li>
+                    <li>Personalize watchlists and instrument filters</li>
+                </ul>
+                <div class="reward">Free for all users</div>
+                <div class="plan-action">
+                    <a href="#">Subscribe by Email</a>
+                </div>
+            </div>
+            <div class="plan">
+                <div class="plan-name">Issuer Provider</div>
+                <div class="plan-desc">For banks, companies, or agencies who list or update ISIN/issue pages.</div>
+                <ul>
+                    <li>Monetize your ISIN data: earn for page visits and updates</li>
+                    <li>Create, edit, and claim ISIN pages with verified control</li>
+                    <li>Access analytics for your instruments</li>
+                </ul>
+                <div class="reward">Rewarded per ISIN visit & edit<br>Extra: Auction issuer can contract for new subscription alerts</div>
+                <div class="plan-action">
+                    <a href="#">Issuer Subscription</a>
+                    <a href="/alert-issues" style="margin-left:8px;">Alert-Issues Contract</a>
+                </div>
+            </div>
+            <div class="plan">
+                <div class="plan-name">Price Agent Provider</div>
+                <div class="plan-desc">For analytics agents or pricing contributors delivering pricing and sensitivities data.</div>
+                <ul>
+                    <li>List your price feeds for MIC codes</li>
+                    <li>Earn rewards for each pricing/sensitivity subscription</li>
+                    <li>Monitor usage, rankings, and reviews</li>
+                </ul>
+                <div class="reward">Rewarded per subscription to prices & sensitivities</div>
+                <div class="plan-action">
+                    <a href="#">Price Agent Subscription</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        &copy; SCCAAHINET SAS and Daniel BOUTRIN 2025
+    </div>
+</body>
+</html>
